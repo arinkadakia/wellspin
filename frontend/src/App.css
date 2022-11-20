@@ -1,0 +1,24 @@
+@import '~antd/dist/antd.css';
+
+.App {
+  background-color: #e9e8e8;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Headings to look more like design */
+h1 {
+  font-size: 24px!important;
+  font-weight: 900!important;
+  line-height: 125%!important;
+}
+
+.mb1 { margin-bottom: 12px; }
+.mb2 { margin-bottom: 24px; }
+.mb3 { margin-bottom: 36px; }
+.mb4 { margin-bottom: 48px; }
+
+.mt1 { margin-top: 12px; }
