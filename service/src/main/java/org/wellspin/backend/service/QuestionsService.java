@@ -6,18 +6,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.wellspin.backend.entity.Location;
 import org.wellspin.backend.entity.Question;
 import org.wellspin.backend.entity.QuestionResponse;
 import org.wellspin.backend.entity.Session;
 import org.wellspin.backend.entity.SessionResponse;
 import org.wellspin.backend.entity.Survey;
-import org.wellspin.backend.entity.Zipcode;
 import org.wellspin.backend.repository.LocationsRepository;
 import org.wellspin.backend.repository.QuestionsRepository;
 import org.wellspin.backend.repository.SessionsRepository;
 import org.wellspin.backend.repository.SurveysRepository;
-import org.wellspin.backend.repository.ZipcodesRepository;
 
 @Service
 public class QuestionsService {
@@ -27,9 +24,6 @@ public class QuestionsService {
 	
 	@Autowired
 	SurveysRepository surveysRepository;
-	
-	@Autowired
-	ZipcodesRepository zipcodesRepository;
 	
 	@Autowired
 	LocationsRepository locationsRepository;
@@ -53,31 +47,19 @@ public class QuestionsService {
 	}
 	
 	/*
-	 * This method returns the surveyId from the zipcode that the user entered in the first question
+	 * This method returns the surveyId from the age that the user entered in the first question
 	 */
-	public Integer getSurveyIdFromZip(Integer zip) {
+	public Integer getSurveyIdFromAge(Integer ageInt) {
 		
-		Integer surveyIdInt = null;
-		
-		// (a) Get the zipcode document
-		if (zip != null) {
-			Zipcode zipcodeDoc = zipcodesRepository.findByZip(zip);
-			if (zipcodeDoc != null) {
-				try {
-					log.info("Found zipcodeDoc, id: " + zipcodeDoc.getId() + ", state_name: " + zipcodeDoc.getState_name());
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-				String stateName = zipcodeDoc.getState_name();
-				String type = "state";
-				
-				// (b) Compare with location collection to get matching surveyid(s)
-				Location locationDoc = locationsRepository.findByNameAndType(stateName, type);
-				if (locationDoc != null) {
-					surveyIdInt = locationDoc.getSurveyid();
-				}
+		Integer surveyIdInt = null;		
+		if (ageInt != null) {
+			if (ageInt == 1) {
+				surveyIdInt = Integer.valueOf(1);
+			} else if (ageInt == 2) {
+				surveyIdInt = Integer.valueOf(2);
 			}
 		}
+		log.info("Returning surveyId: " + surveyIdInt);
 		return surveyIdInt;
 	}
 	
@@ -169,8 +151,8 @@ public class QuestionsService {
 	/*
 	 * Possible scenarios:
 	 *   (1) Call to get the first question. Don't know surveyId yet.
-	 *   (2) Call to get the second question (after the zipcode question). Don't know surveyId yet. 
-	 *         In this case, lastAnswerIds = "0" (text input) and lastAnswerInput = <zipcode> 
+	 *   (2) Call to get the second question (after the age question). Don't know surveyId yet. 
+	 *         In this case, lastAnswerIds = "1" or "2"
 	 *   (3) Call to get question 3 - N. We know the surveyId.
 	 *         In this case, lastAnswerIds = {"0" or "1, 2, 3" or "3"}
 	 *         If 0, use the default nextQuestion (from survey collection). 
@@ -193,35 +175,32 @@ public class QuestionsService {
 			surveyId.intValue() == -1 && lastQuestionId.intValue() == -1 && lastAnswerIdInts.length == 1 &&
 			lastAnswerIdInts[0] == -1) {
 			
-			// (1) Call to get the first (zipcode) question. Don't know surveyId yet.
+			// (1) Call to get the first (age) question. Don't know surveyId yet.
 			nextQuestion = questionsRepository.findById(1);
 			firstQuestion = true;
 			
 		} else if (surveyId != null && lastQuestionId != null && lastAnswerIdInts != null &&
 				   surveyId.intValue() == -1 && lastQuestionId.intValue() == 1 && lastAnswerIdInts.length == 1 &&
-				   lastAnswerIdInts[0] == 0) {
+				   (lastAnswerIdInts[0] == 1 ||lastAnswerIdInts[0] == 2) ) {
 			
-			// (2) Call to get the second question (after the zipcode question). Don't know surveyId yet. 
-			if (lastAnswerInput != null && !lastAnswerInput.isEmpty() && 
-				Integer.valueOf(lastAnswerInput) > 0 && Integer.valueOf(lastAnswerInput) < 100000) {
+			// (2) Call to get the second question (after the age question). Don't know surveyId yet. 
+			
+			// lastAnswerIdInts[0] must be 1 (child) or 2 (adult)
+			if (lastAnswerIdInts != null) {
+				Integer ageInt = lastAnswerIdInts[0];
 				
-				// lastAnswerInput must be zipcode
-				String zipcode = lastAnswerInput;
-				
-				if (zipcode != null) {
-					Integer zipcodeInt = Integer.valueOf(zipcode);
-					
-					// get surveyId from zip
-					Integer surveyIdInt = getSurveyIdFromZip(zipcodeInt);
-					if (surveyIdInt != null) {						
-						// get default next question from surveyId and lastQuestionId
-						nextQuestion = getDefaultNextQuestion(surveyIdInt, lastQuestionId);
+				// get surveyId from age
+				surveyId = getSurveyIdFromAge(ageInt);
+				if (surveyId != null) {						
+					// Check if there's a next question based on last answer choice 
+					nextQuestion = getNextQuestionBasedOnAnswerChoice(lastQuestionId, lastAnswerIdInts);
+					if (nextQuestion == null) {
+						// Get the default next question
+						nextQuestion = getDefaultNextQuestion(surveyId, lastQuestionId);
 					}
 				}
-			} else {
-				// ERROR: lastAnswerIndex must be 0 (text input)
-				//        lastAnswerInput must be specified and it must be a valid zipcode (integer)
-			}	
+			}				
+			
 		} else if (surveyId != null && lastQuestionId != null && lastAnswerIdInts != null && 
 			surveyId.intValue() != -1 && lastQuestionId.intValue() != -1 && lastAnswerIdInts[0] != -1) {	
 			

@@ -21,7 +21,7 @@ export function Survey() {
     navigate("/");
   }
 
-  // I'm not sure how we're going to store the dynamic structure of previous questions & answers o.O
+  // I'm not sure how we're going to store the dynamic structure of previous questions & answers
   // This is just a first guess
   const [previousQuestions, setPreviousQuestions] = useState<QuestionAndAnswer[]>([]);
 
@@ -48,13 +48,17 @@ export function Survey() {
 
       if (previousQuestions.length === 1) {
         if (Some(sessionId)) {
-          const surveyId = await surveyClient.getSurveyIdFromZip(sessionId, previousQuestions[0].answer[0]);
+          const { question: lastQuestion, answer: lastAnswer } = previousQuestions[previousQuestions.length - 1];
+          const surveyId = await surveyClient.getSurveyIdFromAge(
+            sessionId,
+            lastQuestion.answer.findIndex((_) => _ === lastAnswer[0]).toString()
+          );
           setSurveyId(surveyId);
 
           const question = await surveyClient.getSecondQuestion(
             sessionId,
             previousQuestions[previousQuestions.length - 1].question.id,
-            previousQuestions[0].answer[0]
+            lastQuestion.answer.findIndex((_) => _ === lastAnswer[0]).toString()
           );
 
           setCurrentQuestion(question);

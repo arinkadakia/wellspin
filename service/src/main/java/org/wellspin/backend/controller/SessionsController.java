@@ -93,14 +93,14 @@ public class SessionsController extends BaseController {
 		sessionsRepository.deleteById(sessionId);
 	}
 	
-	@GetMapping("/getSurveyIdFromZip")
-	public ResponseEntity<?> getSurveyIdFromZip(@RequestParam("sessionId") String sessionId, @RequestParam("zip") Integer zip) {
+	@GetMapping("/getSurveyIdFromAge")
+	public ResponseEntity<?> getSurveyIdFromAge(@RequestParam("sessionId") String sessionId, @RequestParam("age") Integer age) {
 		Integer surveyId = null;
 		
-		if (zip == null) {
+		if (age == null) {
 			return new ResponseEntity<>(null, HttpStatus.OK);
 		} else {
-			surveyId = questionsService.getSurveyIdFromZip(zip);
+			surveyId = questionsService.getSurveyIdFromAge(age);
 			
 			if (surveyId != null) {
 				// Save the surveyId in this session

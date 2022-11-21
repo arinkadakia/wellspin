@@ -40,24 +40,24 @@ const makeSurveyClient = () => {
     return firstQuestion;
   };
 
-  const getSurveyIdFromZip = async (sessionId: string, zip: string) => {
+  const getSurveyIdFromAge = async (sessionId: string, age: string) => {
     const queryParams = new URLSearchParams({
       sessionId,
-      zip,
+      age,
     });
 
-    const { data: surveyId } = await httpClient.get<number>(`sessions/getSurveyIdFromZip?${queryParams}`);
+    const { data: surveyId } = await httpClient.get<number>(`sessions/getSurveyIdFromAge?${queryParams}`);
 
     return surveyId;
   };
 
-  const getSecondQuestion = async (sessionId: string, questionNumber: number, zip: string) => {
+  const getSecondQuestion = async (sessionId: string, questionNumber: number, age: string) => {
     const queryParams = new URLSearchParams({
       sessionId: sessionId,
       surveyId: "-1",
       lastQuestionId: questionNumber.toString(),
-      lastAnswerIds: "0",
-      lastAnswerInput: zip,
+      lastAnswerIds: age,
+      lastAnswerInput: "",
     });
 
     const { data: secondQuestion } = await httpClient.get<Question>(`questions/getNextQuestion?${queryParams}`);
