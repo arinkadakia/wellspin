@@ -92,7 +92,7 @@ const makeSurveyClient = () => {
     startNewSession,
     getSecondQuestion,
     getNextQuestion,
-    getSurveyIdFromZip,
+    getSurveyIdFromAge,
   };
 };
 
