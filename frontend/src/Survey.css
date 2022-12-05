@@ -2,3 +2,120 @@
   padding: 30px;
   background: #e9e8e8;
 }
+.card-style {
+  box-sizing: border-box;
+  max-width: fit-content;
+  min-width: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 24px;
+  gap: 10px;
+  height: min-content;
+  position: relative;
+  width: 100%;
+  left: 0px;
+  background: #FFFFFF;
+  border: 1px solid #E0E0E0;
+  box-shadow: 0px 7.03125px 14.0625px -3.375px rgba(0, 0, 0, 0.25);
+  border-radius: 8px;
+}
+#button-id {
+  padding-top: 16px !important;
+}
+.ant-row {
+  width:100%;
+}
+.sorryCard-style {
+  box-sizing: border-box;
+  max-width: 60%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 24px;
+  gap: 10px;
+  margin-bottom: 2em;
+  height: min-content;
+  position: relative;
+  width: 100%;
+  left: 20%;
+  background: #FFFFFF;
+  border: 1px solid #E0E0E0;
+  box-shadow: 0px 7.03125px 14.0625px -3.375px rgba(0, 0, 0, 0.25);
+  border-radius: 8px;
+}
+.previousCard-style {
+  box-sizing: border-box;
+  font-size: small;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 24px;
+  position: relative;
+  width: 100%;
+  left: 0px;
+  background: #FFFFFF;
+  margin-bottom: 20px;
+  border: 1px solid #E0E0E0;
+  box-shadow: 0px 7.03125px 14.0625px -3.375px rgba(0, 0, 0, 0.25);
+  border-radius: 8px;
+}
+.dontSaveButton {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: left;
+  padding: 16px 24px;
+  gap: 4px;
+  color: black;
+  border: 1px solid black;
+  width: 100%;
+  height: 20%;
+  /* Primary/500 */
+  background: white;
+  border-radius: 8px;
+  /* Inside auto layout */
+  flex: none;
+  order: 2;
+  flex-grow: 0;
+}
+.button-style {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 16px 24px;
+  gap: 4px;
+  color: white;
+  width: 100%;
+  height: 20%;
+  /* Primary/500 */
+  background: #F72E69;
+  border-radius: 8px;
+  /* Inside auto layout */
+  flex: none;
+  order: 2;
+  flex-grow: 0;
+}
+.websiteButton-style {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 16px 24px;
+  gap: 4px;
+  color: white;
+  text-align: center;
+  vertical-align: middle;
+  width: 100%;
+  max-width: 50em;
+  height: min-content;
+  /* Primary/500 */
+  background: #F72E69;
+  border-radius: 8px;
+  /* Inside auto layout */
+  flex: none;
+  order: 2;
+  flex-grow: 0;
+}

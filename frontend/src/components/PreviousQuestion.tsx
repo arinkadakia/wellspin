@@ -8,9 +8,9 @@ type Props = {
 export const PreviousQuestion = ({ questionAndAnswer: { question, answer } }: Props) => {
   // TODO: make this pretty, and maybe clickable (if person wants to go back to edit previous questions)
   return (
-    <Card className="mb2">
-      <h2>{question.text}</h2>
+    <div className="previousCard-style">
+      <h3>{question.text}</h3>
       <span>{answer.join(", ")}</span>
-    </Card>
+    </div>
   );
 };
