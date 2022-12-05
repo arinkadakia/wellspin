@@ -16,6 +16,7 @@ export function Survey() {
   const navigate = useNavigate();
   const sessionId = new URLSearchParams(window.location.search).get("sessionId");
   const [surveyId, setSurveyId] = useState<number>(0);
+  const [userId, setUserId] = useState<string>("");
 
   if (None(sessionId) || sessionId === "") {
     navigate("/");
@@ -86,18 +87,37 @@ export function Survey() {
             case "check_box":
               return lastAnswer.map((ans) => lastQuestion.answer.findIndex((_) => _ === ans).toString()).join(",");
 
+            case "input_form":
+              return "0";
+
             case "button":
               throw new Error("Not implemented");
+
+            case "show_results_page":
+              return "0";
           }
         };
-        const getLastAnswerInputs = () => {
+        const getLastAnswerInputs = async () => {
           switch (lastQuestion.type) {
             case "text_box":
             case "drop_down":
             case "radio_button":
               // TODO: this method searches the possible answer[] provided by backend, and looks for the first result
               // This is because a drop_down (Select) can only ever pick 1 result
-              // How will we deal with checkboxes, where multiple indices could be selected? Let's deal with that when we get to it!
+              return lastAnswer[0];
+
+            case "input_form":
+              if (Some(sessionId)) {
+                const name = "";
+                const phone = "";
+                const email = lastAnswer[0];
+                const userId = await surveyClient.createUser(name, email, phone);
+                setUserId(userId);
+
+                const sid = await surveyClient.addUserId(sessionId, userId);
+              } else {
+                throw new Error("Somehow attempting to createUser and addUserId but sessionId is null");
+              }
               return lastAnswer[0];
 
             case "check_box":
@@ -105,6 +125,9 @@ export function Survey() {
 
             case "button":
               throw new Error("Not implemented");
+
+            case "show_results_page":
+              return lastAnswer[0];
           }
         };
         if (Some(sessionId)) {
@@ -113,9 +136,14 @@ export function Survey() {
             previousQuestions[previousQuestions.length - 1].question.id,
             surveyId,
             getLastAnswerIds(),
-            getLastAnswerInputs()
+            await getLastAnswerInputs()
           );
-          setCurrentQuestion(question);
+
+          if (question.type === "show_results_page") {
+            navigate(`/programs?sessionId=${sessionId}`);
+          } else {
+            setCurrentQuestion(question);
+          }
         }
       }
 

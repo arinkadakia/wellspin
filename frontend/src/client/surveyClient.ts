@@ -1,6 +1,6 @@
 import axios from "axios";
 import { config } from "../config";
-import { Question } from "../types";
+import { Question, Program } from "../types";
 
 const makeSurveyClient = () => {
   const httpClient = axios.create({
@@ -86,6 +86,49 @@ const makeSurveyClient = () => {
     return nextQuestion;
   };
 
+  const createUser = async (name: string, email: string, phone: string) => {
+    const queryParams = new URLSearchParams({
+      name: name,
+      email: email,
+      phone: phone,
+    });
+
+    const { data: userid } = await httpClient.get<string>(`users/createUser?${queryParams}`);
+
+    return userid;
+  };
+
+  const addUserId = async (sessionId: string, userId: string) => {
+    const queryParams = new URLSearchParams({
+      sessionId: sessionId,
+      userId: userId,
+    });
+
+    const { data: sid } = await httpClient.get<string>(`sessions/addUserId?${queryParams}`);
+
+    return sid;
+  };
+
+  const getEligiblePrograms = async (sessionId: string) => {
+    const queryParams = new URLSearchParams({
+      sessionId: sessionId,
+    });
+
+    const { data: eligiblePrograms } = await httpClient.get<Program[]>(`sessions/getEligiblePrograms?${queryParams}`);
+
+    return eligiblePrograms;
+  };
+
+  const getAllPrograms = async (sessionId: string) => {
+    const queryParams = new URLSearchParams({
+      sessionId: sessionId,
+    });
+
+    const { data: allPrograms } = await httpClient.get<Program[]>(`sessions/getAllProgramsBySessionId?${queryParams}`);
+
+    return allPrograms;
+  };
+
   return {
     getFirstQuestion,
     getTotalProgramsCount,
@@ -93,6 +136,10 @@ const makeSurveyClient = () => {
     getSecondQuestion,
     getNextQuestion,
     getSurveyIdFromAge,
+    createUser,
+    addUserId,
+    getEligiblePrograms,
+    getAllPrograms,
   };
 };
 
