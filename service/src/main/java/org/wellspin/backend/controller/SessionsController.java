@@ -148,9 +148,10 @@ public class SessionsController extends BaseController {
 		return new ResponseEntity<>(null, HttpStatus.OK);
 	}
 
-	@PostMapping("/addUserId")
-	public ResponseEntity<?> addUserId(@RequestParam("sessionId") String sessionId, @RequestParam("userId") String userId) {
-		
+	@GetMapping("/addUserId")
+	public ResponseEntity<?> addUserId(
+			@RequestParam("sessionId") String sessionId, 
+			@RequestParam("userId") String userId) {		
 		if (sessionId != null && userId != null) {
 			Optional<Session> sessionResponseData = sessionsRepository.findById(sessionId);
 			if (sessionResponseData.isPresent()) {
@@ -163,5 +164,21 @@ public class SessionsController extends BaseController {
 
 		return new ResponseEntity<>(null, HttpStatus.OK);
 	}
+	
+	@GetMapping("/getAllProgramsBySessionId") 
+	public ResponseEntity<?> getAllProgramsBySessionId(@RequestParam("sessionId") String sessionId) {
+		
+		List<Program> programsList = null;
+		if (sessionId != null && !sessionId.isEmpty()) {
+			
+			programsList = sessionsService.getAllProgramsBySessionId(sessionId);
+			if (programsList != null && programsList.size() > 0) {
+				Program[] programsArr = new Program[programsList.size()];
+				return new ResponseEntity<Program[]>(programsList.toArray(programsArr), HttpStatus.OK);
+			}
+		}
+		return null;
+	}
+
 	
 }

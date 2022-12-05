@@ -32,8 +32,15 @@ public class UsersController extends BaseController {
 		return usersRepository.findAll();
 	}
 	
-	@PostMapping("/createUser")
-	public ResponseEntity<?> createUser(@RequestBody User user) {
+	@GetMapping("/createUser")
+	public ResponseEntity<?> createUser(
+				@RequestParam("name") String name, 
+				@RequestParam("email") String email,
+				@RequestParam("phone") String phone) {
+		User user = new User();
+		user.setName(name);
+		user.setEmail(email);
+		user.setPhone(phone);
 		user = usersRepository.save(user);
 		if (user != null) {
 			return new ResponseEntity<String>(user.getId(), HttpStatus.OK);

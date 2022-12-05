@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>org.wellspin</groupId>
-	<artifactId>wellspin-service</artifactId>
+	<artifactId>service</artifactId>
 	<version>1.0</version>
 	<name>service</name>
 	<description>WellSpin service</description>
@@ -35,6 +35,12 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+		  <groupId>junit</groupId>
+		  <artifactId>junit</artifactId>
+		  <version>4.11</version>
+		  <scope>test</scope>
 		</dependency>
 	</dependencies>
 
