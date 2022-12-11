@@ -14,12 +14,14 @@ export type QuestionAndAnswer = {
   answer: string[];
 };
 
-export type Program = {
+export type Test = {
   id: number;
   name: string;
   description: string;
   url: string;
-  eligibility: string;
+  positiveresulttext: string;
+  negativeresulttext: string;
+  testresulttext: string;
   type: string;
   locationid: number
 };

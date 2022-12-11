@@ -118,19 +118,19 @@ public class TestsService {
 
 				if (posResponse < 40) {
 					testResult.setTestresultscore(-1);
-					testResult.setTestresulttext("Low ADHD score");
+					testResult.setTestresulttext("Low ADHD");
 				} else if (posResponse >= 40 && posResponse <=59) {
 					testResult.setTestresultscore(-1);
-					testResult.setTestresulttext("Average ADHD score");					
+					testResult.setTestresulttext("Average ADHD");					
 				} else if (posResponse >= 60 && posResponse <= 64) {
 					testResult.setTestresultscore(1);
-					testResult.setTestresulttext("High Average ADHD score");					
+					testResult.setTestresulttext("High Average ADHD");					
 				} else if (posResponse >= 65 && posResponse <= 69) {
 					testResult.setTestresultscore(1);
-					testResult.setTestresulttext("Elevated ADHD score");					
+					testResult.setTestresulttext("Elevated ADHD");					
 				} else if (posResponse >= 70) {
 					testResult.setTestresultscore(1);
-					testResult.setTestresulttext("Very elevated ADHD score");					
+					testResult.setTestresulttext("Very elevated ADHD");					
 				}
 			}
 		}
@@ -182,10 +182,13 @@ public class TestsService {
 
 				if (posResponse >= 4) {
 					testResult.setTestresultscore(1);
-					testResult.setTestresulttext("Positive ADHD score");
+					testResult.setTestresulttext("Based on your answers, "
+							+ "your symptoms are highly consistent with ADHD in adults "
+							+ "and further investigation is warranted.");
 				} else {
 					testResult.setTestresultscore(-1);
-					testResult.setTestresulttext("Negative ADHD score");					
+					testResult.setTestresulttext("Based on your answers, "
+							+ "your symptoms are NOT consistent with ADHD in adults.");					
 				} 
 			}
 			

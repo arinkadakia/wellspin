@@ -38,9 +38,6 @@ export function Survey() {
     console.log("previousQuestions.length: ", previousQuestions.length);
 
     const getNextQuestion = async () => {
-      // TODO: call "addToSession"
-      // TODO: Update eligible programs count
-
       // Depending on how many questions are in the previousQuestions we need to behave differently
       if (previousQuestions.length === 0) {
         const question = await surveyClient.getFirstQuestion();
@@ -140,7 +137,7 @@ export function Survey() {
           );
 
           if (question.type === "show_results_page") {
-            navigate(`/programs?sessionId=${sessionId}`);
+            navigate(`/results?sessionId=${sessionId}`);
           } else {
             setCurrentQuestion(question);
           }
