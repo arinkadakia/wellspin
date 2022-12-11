@@ -4,7 +4,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document
-public class Program {
+public class Test {
 	
 	@Id
 	private Integer id;
@@ -16,11 +16,11 @@ public class Program {
 	private Integer locationid;
 	
 	public Integer getId() {
-		Integer programId = Integer.valueOf(-1);
+		Integer testId = Integer.valueOf(-1);
 		if (this.id != null) {
-			programId = this.id;
+			testId = this.id;
 		}
-		return programId;
+		return testId;
 	}
 	
 	public void setId(Integer id) {

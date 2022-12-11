@@ -9,9 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.wellspin.backend.controller.ProgramsController;
+import org.wellspin.backend.controller.TestController;
 import org.wellspin.backend.entity.Location;
-import org.wellspin.backend.entity.Program;
+import org.wellspin.backend.entity.Test;
 import org.wellspin.backend.entity.Session;
 import org.wellspin.backend.entity.SessionResponse;
 import org.wellspin.backend.repository.LocationsRepository;
@@ -22,15 +22,12 @@ public class SessionsService {
 	
 	@Autowired
 	SessionsRepository sessionsRepository;
-
-	@Autowired
-	ConditionsService conditionsService;
 	
 	@Autowired
-	ProgramsService programsService;
+	TestsService testsService;
 	
 	@Autowired
-	ProgramsController programsController;
+	TestController testsController;
 	
 	@Autowired
 	LocationsRepository locationsRepository;
@@ -58,9 +55,9 @@ public class SessionsService {
 	}	
 	
 	/*
-	 * Return all programs_ids that this user is eligible for so far...
+	 * Evaluate this user for all tests so far...
 	 */
-	public Integer[] getEligiblePrograms(Session session) {		
+	public Integer[] evaluateTests(Session session) {		
 		/*
 		 * Evaluate all conditions for this session. 
 		 * Return condition_ids that are true for this user.
@@ -68,26 +65,26 @@ public class SessionsService {
 		Integer[] processedConditionsArr = conditionsService.processAllConditionsForThisSession(session);
 		if (processedConditionsArr != null && processedConditionsArr.length > 0) {		
 			/*
-			 * Evaluate all programs for this session. 
-			 * Return program_ids that this user is eligible for.
+			 * Evaluate all tests for this session. 
+			 * Return test_ids that this user is eligible for.
 			 */				
-			Integer[] eligibleProgramsArr = programsService.processAllProgramsForThisSession(session, processedConditionsArr);
-			if (eligibleProgramsArr != null) {
-				return eligibleProgramsArr;
+			Integer[] evalutedTestsArr = testsService.processAllTestsForThisSession(session, processedConditionsArr);
+			if (evalutedTestsArr != null) {
+				return evalutedTestsArr;
 			}
 		}
 		return null;	
 	}
 
 	/* 
-	 * Returns Program details from program Ids 
+	 * Returns Test details from test Ids 
 	 */
-	public Program[] getProgramsFromIds(Integer[] eligibleProgramsArr) {
-		Program[] programArr = null;
-		if (eligibleProgramsArr != null && eligibleProgramsArr.length > 0) {
-			programArr = programsService.getProgramFromIds(eligibleProgramsArr);
+	public Test[] getTestsFromIds(Integer[] evalutedTestsArr) {
+		Test[] testArr = null;
+		if (evalutedTestsArr != null && evalutedTestsArr.length > 0) {
+			testArr = testsService.getTestFromIds(evalutedTestsArr);
 		}
-		return programArr;
+		return testArr;
 	}
 	
 	int getLocationIdFromSessionId(String sessionId) {
@@ -113,19 +110,19 @@ public class SessionsService {
 		return locationId;
 	}
 	
-	public List<Program> getAllProgramsBySessionId(String sessionId) {	
-		List<Program> programs = null;
+	public List<Test> getAllTestsBySessionId(String sessionId) {	
+		List<Test> tests = null;
 		
 		if (sessionId != null && !sessionId.isEmpty()) {
 			// get locationId from this sessionId
 			int locationId = getLocationIdFromSessionId(sessionId);
 			
 			if (locationId > 0) {
-				// get list of programs from locationId
-				programs = programsController.findByLocationId(locationId);
+				// get list of tests from locationId
+				tests = testsController.findByLocationId(locationId);
 			}
 		}
 		
-		return programs;
+		return tests;
 	}
 }

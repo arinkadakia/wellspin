@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.wellspin.backend.entity.Program;
+import org.wellspin.backend.entity.Test;
 import org.wellspin.backend.entity.Session;
 import org.wellspin.backend.repository.SessionsRepository;
 import org.wellspin.backend.service.QuestionsService;
@@ -118,30 +118,15 @@ public class SessionsController extends BaseController {
 		} 
 	}
 	
-	@GetMapping("/getEligibleProgramsCount")
-	public ResponseEntity<?> getEligibleProgramsCount(@RequestParam("sessionId") String sessionId) {
+	@GetMapping("/evaluateTests")
+	public ResponseEntity<?> evaluateTests(@RequestParam("sessionId") String sessionId) {
 
 		Optional<Session> sessionResponseData = sessionsRepository.findById(sessionId);
 		if (sessionResponseData.isPresent()) {
 			Session session = sessionResponseData.get();
-			Integer[] eligibleProgramsArr = sessionsService.getEligiblePrograms(session);
-			if (eligibleProgramsArr!=null && eligibleProgramsArr.length>0) {
-				return new ResponseEntity<Integer>(eligibleProgramsArr.length, HttpStatus.OK);
-			}
-		}
-		
-		return new ResponseEntity<>(null, HttpStatus.OK);
-	}
-	
-	@GetMapping("/getEligiblePrograms")
-	public ResponseEntity<?> getEligiblePrograms(@RequestParam("sessionId") String sessionId) {
-
-		Optional<Session> sessionResponseData = sessionsRepository.findById(sessionId);
-		if (sessionResponseData.isPresent()) {
-			Session session = sessionResponseData.get();
-			Integer[] eligibleProgramsArr = sessionsService.getEligiblePrograms(session);
-			if (eligibleProgramsArr!=null && eligibleProgramsArr.length>0) {
-				return new ResponseEntity<Program[]>(sessionsService.getProgramsFromIds(eligibleProgramsArr), HttpStatus.OK);
+			Integer[] eligibleTestsArr = sessionsService.evaluateTests(session);
+			if (eligibleTestsArr!=null && eligibleTestsArr.length>0) {
+				return new ResponseEntity<Test[]>(sessionsService.getTestsFromIds(eligibleTestsArr), HttpStatus.OK);
 			}
 		}
 		
@@ -165,16 +150,16 @@ public class SessionsController extends BaseController {
 		return new ResponseEntity<>(null, HttpStatus.OK);
 	}
 	
-	@GetMapping("/getAllProgramsBySessionId") 
-	public ResponseEntity<?> getAllProgramsBySessionId(@RequestParam("sessionId") String sessionId) {
+	@GetMapping("/getAllTestsBySessionId") 
+	public ResponseEntity<?> getAllTestsBySessionId(@RequestParam("sessionId") String sessionId) {
 		
-		List<Program> programsList = null;
+		List<Test> testsList = null;
 		if (sessionId != null && !sessionId.isEmpty()) {
 			
-			programsList = sessionsService.getAllProgramsBySessionId(sessionId);
-			if (programsList != null && programsList.size() > 0) {
-				Program[] programsArr = new Program[programsList.size()];
-				return new ResponseEntity<Program[]>(programsList.toArray(programsArr), HttpStatus.OK);
+			testsList = sessionsService.getAllTestsBySessionId(sessionId);
+			if (testsList != null && testsList.size() > 0) {
+				Test[] testsArr = new Test[testsList.size()];
+				return new ResponseEntity<Test[]>(testsList.toArray(testsArr), HttpStatus.OK);
 			}
 		}
 		return null;

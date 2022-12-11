@@ -9,91 +9,91 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.wellspin.backend.entity.Program;
+import org.wellspin.backend.entity.Test;
 import org.wellspin.backend.entity.Session;
-import org.wellspin.backend.repository.ProgramsRepository;
+import org.wellspin.backend.repository.TestsRepository;
 
 @Service
-public class ProgramsService {
+public class TestsService {
 
 	@Autowired
-	ProgramsRepository programsRepository;
+	TestsRepository testsRepository;
 	
 	@Autowired
 	LocationsService locationsService;
 	
-	Logger log = LoggerFactory.getLogger(ProgramsService.class);
+	Logger log = LoggerFactory.getLogger(TestsService.class);
 	
 	/*
-	 * Returns programArray from programIds
+	 * Returns testArray from testIds
 	 */
-	public Program[] getProgramFromIds(Integer[] programIds) {
-		List<Program> programList = new ArrayList<Program>();
+	public Test[] getTestFromIds(Integer[] testIds) {
+		List<Test> testList = new ArrayList<Test>();
 	
-		if (programIds != null && programIds.length > 0) {
-			for (int i=0; i<programIds.length; i++) {
-				Program pgm = programsRepository.findById(programIds[i]);
-				programList.add(pgm);
+		if (testIds != null && testIds.length > 0) {
+			for (int i=0; i<testIds.length; i++) {
+				Test pgm = testsRepository.findById(testIds[i]);
+				testList.add(pgm);
 			}
 			
-			// return the list of program(s) that are true
-			if (programList != null && programList.size() > 0) {
-				Program[] programsArr= new Program[programList.size()];
-				programsArr = programList.toArray(programsArr);
-				return programsArr;
+			// return the list of test(s) that are true
+			if (testList != null && testList.size() > 0) {
+				Test[] testsArr= new Test[testList.size()];
+				testsArr = testList.toArray(testsArr);
+				return testsArr;
 			}
 		}	
 		return null;
 	}
 	
 	/*
-	 * Process all programs for this session. Return a list of eligible program_ids.
+	 * Process all tests for this session. Return a list of eligible test_ids.
 	 * e.g. processedConditionsArr = [1, 9, 12, 19, 20, 24, 7] <= matching condition_ids
 	 * e.g. processedConditionsArr = null <= no matching condition_ids
 	 */
-	Integer[] processAllProgramsForThisSession(Session session, Integer[] processedConditionsArr) {
-		List<Integer> eligibleProgramsList = null;
+	Integer[] processAllTestsForThisSession(Session session, Integer[] processedConditionsArr) {
+		List<Integer> eligibleTestsList = null;
 		if (session != null && processedConditionsArr != null && session.getSurveyId() != null) {
 			Integer locationId = locationsService.getLocationIdFromSurveyId(session.getSurveyId());
 		
-			// get all programs for the locationId
-			List<Program> programsList = programsRepository.findByLocationid(locationId);
+			// get all tests for the locationId
+			List<Test> testsList = testsRepository.findByLocationid(locationId);
 			
-			// for each program:
-			for (int i=0; i<programsList.size(); i++) {
-				Program pgm = programsList.get(i);
+			// for each test:
+			for (int i=0; i<testsList.size(); i++) {
+				Test pgm = testsList.get(i);
 			
 				// get the eligibility criteria (e.g. "1 AND (2 OR 3 OR 4) AND ( 5 OR 6 OR 7 OR 8 OR (9 AND 10) ) AND 11")
 				String eligibilityCriteria = pgm.getEligibility();
 	
 				// check if the conditions meet the eligibility criteria
-				boolean eligible = checkforProgramEligibility(eligibilityCriteria, processedConditionsArr);
+				boolean eligible = checkforTestEligibility(eligibilityCriteria, processedConditionsArr);
 				
-				// if eligible, add the program to the eligiblePrograms list
+				// if eligible, add the test to the eligibleTests list
 				if (eligible) {
-					if (eligibleProgramsList == null) {
-						eligibleProgramsList = new ArrayList<Integer>();
+					if (eligibleTestsList == null) {
+						eligibleTestsList = new ArrayList<Integer>();
 					}
-					eligibleProgramsList.add(pgm.getId());
+					eligibleTestsList.add(pgm.getId());
 				}
 			}
 		}
 		
-		if (eligibleProgramsList != null && eligibleProgramsList.size() > 0) {
-			Integer[] eligibleProgramsArr = new Integer[eligibleProgramsList.size()];
-			eligibleProgramsArr = eligibleProgramsList.toArray(eligibleProgramsArr);
-			return eligibleProgramsArr;
+		if (eligibleTestsList != null && eligibleTestsList.size() > 0) {
+			Integer[] eligibleTestsArr = new Integer[eligibleTestsList.size()];
+			eligibleTestsArr = eligibleTestsList.toArray(eligibleTestsArr);
+			return eligibleTestsArr;
 		} else {
 			return null;
 		}
 	}
 	
 	/*
-	 * Checks for program eligibility: 	
+	 * Checks for test eligibility: 	
 	 *    - eligibilityCriteria = "1 AND (2 OR 3 OR 4) AND ( 5 OR 6 OR 7 OR 8 OR (9 AND 10) ) AND 11"
 	 *    - processedConditionsArr = [1, 9, 12, 19, 20, 24, 7] <= matching condition_ids	
 	 */
-	public boolean checkforProgramEligibility(String eligibilityCriteria, Integer[] processedConditionsArr) {		
+	public boolean checkforTestEligibility(String eligibilityCriteria, Integer[] processedConditionsArr) {		
 		boolean eligible = false;	
 		List<String> matches = new ArrayList<>();
 		String regex = "\\([^()]*\\)";
