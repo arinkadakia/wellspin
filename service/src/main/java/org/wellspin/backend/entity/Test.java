@@ -11,7 +11,10 @@ public class Test {
 	private String name;
 	private String description;
 	private String url;
-	private String eligibility;
+	private String positiveresulttext;
+	private String negativeresulttext;
+	private Integer testresultscore;
+	private String testresulttext;
 	private String type;
 	private Integer locationid;
 	
@@ -51,12 +54,36 @@ public class Test {
 		this.url = url;
 	}
 
-	public String getEligibility() {
-		return eligibility;
+	public String getPositiveresulttext() {
+		return positiveresulttext;
 	}
 
-	public void setEligibility(String eligibility) {
-		this.eligibility = eligibility;
+	public void setPositiveresulttext(String positiveresulttext) {
+		this.positiveresulttext = positiveresulttext;
+	}
+
+	public String getNegativeresulttext() {
+		return negativeresulttext;
+	}
+
+	public void setNegativeresulttext(String negativeresulttext) {
+		this.negativeresulttext = negativeresulttext;
+	}
+
+	public Integer getTestresultscore() {
+		return testresultscore;
+	}
+
+	public void setTestresultscore(Integer testresultscore) {
+		this.testresultscore = testresultscore;
+	}
+
+	public String getTestresulttext() {
+		return testresulttext;
+	}
+
+	public void setTestresulttext(String testresulttext) {
+		this.testresulttext = testresulttext;
 	}
 
 	public String getType() {

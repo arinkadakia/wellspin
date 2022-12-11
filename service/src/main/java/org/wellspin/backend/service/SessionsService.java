@@ -57,34 +57,22 @@ public class SessionsService {
 	/*
 	 * Evaluate this user for all tests so far...
 	 */
-	public Integer[] evaluateTests(Session session) {		
+	public Test evaluateTest(Session session) {		
 		/*
-		 * Evaluate all conditions for this session. 
-		 * Return condition_ids that are true for this user.
+		 * Fetch the relevant test for this user  
+		 * Return test that:
+		 *  - this user is eligible for
+		 *  - along with the status of the test (testresultscore)
+		 *  - and the positive and negative test result description (testresulttext, positiveresulttext, negativeresulttext)
 		 */	
-		Integer[] processedConditionsArr = conditionsService.processAllConditionsForThisSession(session);
-		if (processedConditionsArr != null && processedConditionsArr.length > 0) {		
-			/*
-			 * Evaluate all tests for this session. 
-			 * Return test_ids that this user is eligible for.
-			 */				
-			Integer[] evalutedTestsArr = testsService.processAllTestsForThisSession(session, processedConditionsArr);
-			if (evalutedTestsArr != null) {
-				return evalutedTestsArr;
+		Integer testId = testsService.getEligibleTestForThisSession(session);
+		if (testId != null) {				
+			Test evaluatedTest = testsService.evaluateTestForThisSession(session, testId);
+			if (evaluatedTest != null) {
+				return evaluatedTest;
 			}
 		}
 		return null;	
-	}
-
-	/* 
-	 * Returns Test details from test Ids 
-	 */
-	public Test[] getTestsFromIds(Integer[] evalutedTestsArr) {
-		Test[] testArr = null;
-		if (evalutedTestsArr != null && evalutedTestsArr.length > 0) {
-			testArr = testsService.getTestFromIds(evalutedTestsArr);
-		}
-		return testArr;
 	}
 	
 	int getLocationIdFromSessionId(String sessionId) {

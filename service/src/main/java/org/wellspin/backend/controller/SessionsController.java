@@ -118,15 +118,15 @@ public class SessionsController extends BaseController {
 		} 
 	}
 	
-	@GetMapping("/evaluateTests")
-	public ResponseEntity<?> evaluateTests(@RequestParam("sessionId") String sessionId) {
+	@GetMapping("/evaluateTest")
+	public ResponseEntity<?> evaluateTest(@RequestParam("sessionId") String sessionId) {
 
 		Optional<Session> sessionResponseData = sessionsRepository.findById(sessionId);
 		if (sessionResponseData.isPresent()) {
 			Session session = sessionResponseData.get();
-			Integer[] eligibleTestsArr = sessionsService.evaluateTests(session);
-			if (eligibleTestsArr!=null && eligibleTestsArr.length>0) {
-				return new ResponseEntity<Test[]>(sessionsService.getTestsFromIds(eligibleTestsArr), HttpStatus.OK);
+			Test evaluatedTest = sessionsService.evaluateTest(session);
+			if (evaluatedTest!=null) {
+				return new ResponseEntity<Test>(evaluatedTest, HttpStatus.OK);
 			}
 		}
 		
