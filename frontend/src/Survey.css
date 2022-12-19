@@ -148,6 +148,10 @@
   border-color: white;
 }
 
+#button-style-id {
+  padding-top: 10px !important;
+}
+
 #program-card-button {
   padding-top: 10px !important;
 }
@@ -226,4 +230,15 @@
 
 .display-block {
   display: block;
+}
+
+.test-description-style {
+  color: darkgray;
+}
+
+.test-result-text {
+  font-size: 20px;
+  font-weight: 600 !important;
+  color: green;
+  padding-bottom: 15px;
 }

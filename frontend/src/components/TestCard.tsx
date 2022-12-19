@@ -10,13 +10,13 @@ export const TestCard = ({ test }: Props) => {
 
   return (
     <div className="card-style">
-      <div className="question-title-style">{test.name}</div>
-      <div>{test.description}</div>
+      <Typography.Title level={4}>{test.name}</Typography.Title>
+      <div className="test-description-style">{test.description}</div>
       <div>
         <Typography.Title level={4}>Test Result</Typography.Title>
-        <div>{test.testresulttext}</div>
+        <div className="test-result-text">Based on your answers, {test.name} predicts that you have {test.testresulttext}</div>
       </div>
-      <Button className="button-style" href={test.url} target="_blank">
+      <Button id="button-style-id" className="button-style" href={test.url} target="_blank">
         Visit Website
       </Button>
     </div>
