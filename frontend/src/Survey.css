@@ -2,90 +2,121 @@
   padding: 30px;
   background: #e9e8e8;
 }
+
+.app-wrapper {
+  width: 100%;
+  max-width: 520px;
+  padding: 20px;
+}
+
 .card-style {
+  margin-bottom: 20px;
   box-sizing: border-box;
-  max-width: fit-content;
-  min-width: 300px;
+  font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  padding: 24px;
+  text-align: center;
+  padding: 24px 30px 24px 30px;
   gap: 10px;
   height: min-content;
   position: relative;
-  width: 100%;
   left: 0px;
   background: #FFFFFF;
   border: 1px solid #E0E0E0;
   box-shadow: 0px 7.03125px 14.0625px -3.375px rgba(0, 0, 0, 0.25);
-  border-radius: 8px;
+  border-radius: 16px;
 }
-#button-id {
-  padding-top: 16px !important;
+
+.previous-question-title-style {
+  font-style: normal;
+  font-size: 14px;
+  text-align: center;
+  font-weight: 150 !important;
 }
+
+.question-title-style {
+  font-style: normal;
+  font-size: 16px;
+  text-align: center;
+  font-weight: 600 !important;
+}
+
+.card-actions-style {
+  text-align: center;
+  margin-top: 12px;
+  margin-bottom: 12px;
+}
+
 .ant-row {
   width:100%;
 }
-.sorryCard-style {
-  box-sizing: border-box;
-  max-width: 60%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  padding: 24px;
-  gap: 10px;
-  margin-bottom: 2em;
-  height: min-content;
-  position: relative;
-  width: 100%;
-  left: 20%;
-  background: #FFFFFF;
-  border: 1px solid #E0E0E0;
-  box-shadow: 0px 7.03125px 14.0625px -3.375px rgba(0, 0, 0, 0.25);
-  border-radius: 8px;
-}
+
 .previousCard-style {
+  color:#222222;
   box-sizing: border-box;
-  font-size: small;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  padding: 24px;
+  text-align: center;
+  padding: 24px 30px 10px 30px;
   position: relative;
-  width: 100%;
   left: 0px;
   background: #FFFFFF;
   margin-bottom: 20px;
   border: 1px solid #E0E0E0;
   box-shadow: 0px 7.03125px 14.0625px -3.375px rgba(0, 0, 0, 0.25);
-  border-radius: 8px;
+  border-radius: 16px;
 }
+
 .dontSaveButton {
+  background: rgb(236, 236, 236);
+  max-width: 200px;
+  margin-left: 15px;
   display: flex;
   flex-direction: row;
   justify-content: center;
-  align-items: left;
-  padding: 16px 24px;
+  align-items: center;
+  padding: 10px 24px;
   gap: 4px;
   color: black;
-  border: 1px solid black;
   width: 100%;
   height: 20%;
   /* Primary/500 */
-  background: white;
   border-radius: 8px;
   /* Inside auto layout */
   flex: none;
   order: 2;
   flex-grow: 0;
 }
+
+.dontSaveButton:hover {
+  background: rgb(214, 214, 214);
+  color: black;
+  border-color: white;
+}
+
+.dontSaveButton:active {
+  background: rgb(214, 214, 214);
+  color: black;
+  border-color: white;
+}
+
+.dontSaveButton:focus {
+  background: rgb(214, 214, 214);
+  color: black;
+  border-color: white;
+}
+
 .button-style {
+  max-width: 200px;
+  margin: 0;
+  left: 50%;
+  -ms-transform: translateX(-50%, 0);
+  transform: translate(-50%, 0);
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  padding: 16px 24px;
+  padding: 10px 24px;
   gap: 4px;
   color: white;
   width: 100%;
@@ -98,6 +129,75 @@
   order: 2;
   flex-grow: 0;
 }
+
+.button-style:hover {
+  background: #DC143C;
+  color: white;
+  border-color: white;
+}
+
+.button-style:active {
+  background: #DC143C;
+  color: white;
+  border-color: white;
+}
+
+.button-style:focus {
+  background: #DC143C;
+  color: white;
+  border-color: white;
+}
+
+#program-card-button {
+  padding-top: 10px !important;
+}
+
+.program-card-button-style {
+  max-width: 200px;
+  margin: 15px 0 0 0;
+  left: 50%;
+  -ms-transform: translateX(-50%, 0);
+  transform: translate(-50%, 0);
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 24px;
+  gap: 4px;
+  color: white;
+  width: 100%;
+  height: 20%;
+  /* Primary/500 */
+  background: #F72E69;
+  border-radius: 8px;
+  /* Inside auto layout */
+  flex: none;
+  order: 2;
+  flex-grow: 0;
+}
+
+.program-card-button-style:hover {
+  background: #DC143C;
+  color: white;
+  border-color: white;
+}
+
+.program-card-button-style:active {
+  background: #DC143C;
+  color: white;
+  border-color: white;
+}
+
+.program-card-button-style:focus {
+  background: #DC143C;
+  color: white;
+  border-color: white;
+}
+
+.input-box-style {
+  text-align: center;
+}
+
 .websiteButton-style {
   display: flex;
   flex-direction: row;
@@ -118,4 +218,12 @@
   flex: none;
   order: 2;
   flex-grow: 0;
+}
+
+#summary-title-id {
+  margin-bottom: 15px;
+}
+
+.display-block {
+  display: block;
 }

@@ -25,29 +25,20 @@ export function Home() {
   };
 
   return (
-    <Row justify="center">
-      <Col span={8}>
-        <Row justify="center" className="mb4">
-          <Col>
-            {/* TODO: replace this with the image from the design. Don't forget to update the alt text! */}
-            <Image width={157} src="https://placekitten.com/157/157" preview={false} alt="A cute kitten" />
-          </Col>
-        </Row>
+    <div>
+      <Row justify="center" className="mb4">
+        <Image width={250} src="image.png" preview={false} alt="WellSpin" />
+      </Row>
 
-        <Row className="mb2">
-          <Col>
-            <Typography.Title>Find what services you are eligible for in less than 5 minutes</Typography.Title>
-          </Col>
-        </Row>
+      <Row className="mb2">
+        <Typography.Title>Find your ADHD score in less than 5 minutes</Typography.Title>
+      </Row>
 
-        <Row justify="center">
-          <Col>
-            <Button type="primary" size="large" shape="round" onClick={startSurvey} loading={isLoading}>
-              Start
-            </Button>
-          </Col>
-        </Row>
-      </Col>
-    </Row>
+      <Row justify="center" className="display-block">
+        <Button className="button-style" onClick={startSurvey} loading={isLoading}>
+          Start
+        </Button>
+      </Row>
+    </div>
   );
 }

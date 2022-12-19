@@ -11,7 +11,15 @@ export function InputBoxCard() {
         <Card title="Input Box" bordered={false} style={{ width: 300 }}>
           <Row style={{ marginBottom: 20 }}>
             <Col>
-              <InputNumber value={q1} min={0} onChange={(value) => setQ1(value)} />
+              <InputNumber
+                value={q1}
+                min={0}
+                onChange={(value) => {
+                  if (typeof value === "number") {
+                    setQ1(value);
+                  }
+                }}
+              />
             </Col>
           </Row>
           <Row>

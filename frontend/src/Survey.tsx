@@ -1,5 +1,5 @@
-import { Row, Spin } from "antd";
-import { useEffect, useState } from "react";
+import { notification, Row, Spin } from "antd";
+import React, { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { surveyClient } from "./client/surveyClient";
 import { PreviousQuestion } from "./components/PreviousQuestion";
@@ -9,6 +9,8 @@ import { Question, QuestionAndAnswer } from "./types";
 import { None } from "./utils/None";
 import { Some } from "./utils/Some";
 
+const Context = React.createContext({ name: "Default" });
+
 export function Survey() {
   console.log("Rendering Survey()");
 
@@ -17,6 +19,7 @@ export function Survey() {
   const sessionId = new URLSearchParams(window.location.search).get("sessionId");
   const [surveyId, setSurveyId] = useState<number>(0);
   const [userId, setUserId] = useState<string>("");
+  const [notificationApi, contextHolder] = notification.useNotification();
 
   if (None(sessionId) || sessionId === "") {
     navigate("/");
@@ -155,8 +158,17 @@ export function Survey() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [previousQuestions.length]);
 
+  const contextValue = useMemo(() => ({ name: "Ant Design" }), []);
+
+  // When current question changes, always scroll to the bottom of the screen
+  useEffect(() => {
+    window.scrollTo(0, document.body.scrollHeight);
+  }, [currentQuestion]);
+
   return (
-    <>
+    <Context.Provider value={contextValue}>
+      {contextHolder}
+
       {/* This will be the "Previous questions" bit from the design */}
       {previousQuestions.map((q) => (
         <PreviousQuestion key={q.question.id} questionAndAnswer={q} />
@@ -186,6 +198,6 @@ export function Survey() {
           <Spin size="large" />
         </Row>
       )}
-    </>
+    </Context.Provider>
   );
 }

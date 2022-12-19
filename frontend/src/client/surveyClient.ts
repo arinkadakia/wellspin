@@ -40,7 +40,12 @@ const makeSurveyClient = () => {
       age,
     });
 
-    const { data: surveyId } = await httpClient.get<number>(`sessions/getSurveyIdFromAge?${queryParams}`);
+    const { data: surveyId } = await httpClient.get<number | string>(`sessions/getSurveyIdFromAge?${queryParams}`);
+
+    // A string here indicates a problem with the ZIP code provided
+    if (typeof surveyId === "string") {
+      throw new Error("Expected number, got string");
+    }
 
     return surveyId;
   };
