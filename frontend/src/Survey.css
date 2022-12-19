@@ -232,12 +232,16 @@
   display: block;
 }
 
+.test-result-title-style {
+  padding-top: 15px;
+}
+
 .test-description-style {
   color: darkgray;
 }
 
 .test-result-text {
-  font-size: 20px;
+  font-size: 15px;
   font-weight: 600 !important;
   color: green;
   padding-bottom: 15px;
