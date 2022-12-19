@@ -14,9 +14,7 @@ export const TestCard = ({ test }: Props) => {
       <div className="test-description-style">{test.description}</div>
       <div className="test-result-title-style">
         <Typography.Title level={4}>Test Result</Typography.Title>
-        <div className="test-result-text">
-          Based on your answers, {test.name} predicts that you have {test.testresulttext}
-        </div>
+        <div className="test-result-text">{test.testresulttext}</div>
       </div>
       <Button id="button-style-id" className="button-style" href={test.url} target="_blank">
         Visit Website

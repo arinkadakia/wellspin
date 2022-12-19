@@ -86,7 +86,7 @@ export const QuestionCard = ({ question, onNext }: Props) => {
                 {question.answer
                   .filter((answer) => answer !== "")
                   .map((answer) => (
-                    <Space direction="vertical" key={answer}>
+                    <Space direction="vertical" /*style={{ textAlign: "left"; width: "100%"; }}*/ key={answer}>
                       <Radio value={answer}>{answer}</Radio>
                     </Space>
                   ))}
