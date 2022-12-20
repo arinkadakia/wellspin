@@ -1,4 +1,4 @@
-import { Button, Card, Col, Input, Select, Row, Typography, Radio, Space, Checkbox, Form } from "antd";
+import { Button, Col, Input, Select, Row, Typography, Radio, Space, Checkbox, Form } from "antd";
 import { CheckboxValueType } from "antd/lib/checkbox/Group";
 import { useState } from "react";
 import { Question } from "../types";
@@ -36,7 +36,7 @@ export const QuestionCard = ({ question, onNext }: Props) => {
 
           <Form.Item>
             <Space>
-              <Button className="button-style" htmlType="submit">
+              <Button className="button-save-email-style" htmlType="submit">
                 Save email
               </Button>
 
@@ -82,11 +82,11 @@ export const QuestionCard = ({ question, onNext }: Props) => {
             )}
 
             {question.type === "radio_button" && (
-              <Radio.Group style={{ width: "100%" }} onChange={(e) => setAnswer([e.target.value])}>
+              <Radio.Group className="radio-buttons-group-style" onChange={(e) => setAnswer([e.target.value])}>
                 {question.answer
                   .filter((answer) => answer !== "")
                   .map((answer) => (
-                    <Space direction="vertical" /*style={{ textAlign: "left"; width: "100%"; }}*/ key={answer}>
+                    <Space direction="vertical" className="radio-button-style" key={answer}>
                       <Radio value={answer}>{answer}</Radio>
                     </Space>
                   ))}

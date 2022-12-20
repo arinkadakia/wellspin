@@ -1,4 +1,3 @@
-import { Card } from "antd";
 import { QuestionAndAnswer } from "../types";
 
 type Props = {

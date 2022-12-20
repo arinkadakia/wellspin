@@ -1,8 +1,7 @@
-import { Row, Col, Button, Image, Typography } from "antd";
-import { useEffect, useState } from "react";
+import { Row, Button, Image, Typography } from "antd";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { surveyClient } from "../client/surveyClient";
-import { Some } from "../utils/Some";
 
 export function Home() {
   // This state will be used to tell if a new session start is underway
