@@ -22,7 +22,7 @@ export const QuestionCard = ({ question, onNext }: Props) => {
   if (question.type === "input_form") {
     return (
       <div className="card-style">
-        <div className="question-title-style">{question.text}</div>
+        <div className="question-title-style" dangerouslySetInnerHTML={{ __html: question.text }} />
 
         <Form form={form} layout="vertical" autoComplete="off" onFinish={() => onNext(answer)}>
           <Form.Item name="email" rules={[{ type: "email" }]}>
@@ -52,7 +52,7 @@ export const QuestionCard = ({ question, onNext }: Props) => {
 
   return (
     <div className="card-style">
-      <div className="question-title-style">{question.text}</div>
+      <div className="question-title-style" dangerouslySetInnerHTML={{ __html: question.text }} />
 
       <form
         onSubmit={(event) => {
