@@ -26,7 +26,7 @@ export function Home() {
   return (
     <div>
       <Row justify="center" className="mb4">
-        <Image width={250} src="image.png" preview={false} alt="WellSpin" />
+        <Image width={250} src="home.png" preview={false} alt="WellSpin" />
       </Row>
 
       <Row className="mb2">

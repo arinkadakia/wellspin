@@ -122,7 +122,7 @@
   width: 100%;
   height: 20%;
   /* Primary/500 */
-  background: #F72E69;
+  background: #0096FF;
   border-radius: 8px;
   /* Inside auto layout */
   flex: none;
@@ -131,19 +131,19 @@
 }
 
 .button-style:hover {
-  background: #DC143C;
+  background: #0079d0;
   color: white;
   border-color: white;
 }
 
 .button-style:active {
-  background: #DC143C;
+  background: #0079d0;
   color: white;
   border-color: white;
 }
 
 .button-style:focus {
-  background: #DC143C;
+  background: #0079d0;
   color: white;
   border-color: white;
 }
@@ -168,7 +168,7 @@
   width: 100%;
   height: 20%;
   /* Primary/500 */
-  background: #F72E69;
+  background: #0096FF;
   border-radius: 8px;
   /* Inside auto layout */
   flex: none;
@@ -177,19 +177,19 @@
 }
 
 .button-save-email-style:hover {
-  background: #DC143C;
+  background: #0079d0;
   color: white;
   border-color: white;
 }
 
 .button-save-email-style:active {
-  background: #DC143C;
+  background: #0079d0;
   color: white;
   border-color: white;
 }
 
 .button-save-email-style:focus {
-  background: #DC143C;
+  background: #0079d0;
   color: white;
   border-color: white;
 }
@@ -214,7 +214,7 @@
   width: 100%;
   height: 20%;
   /* Primary/500 */
-  background: #F72E69;
+  background: #0096FF;
   border-radius: 8px;
   /* Inside auto layout */
   flex: none;
@@ -223,19 +223,19 @@
 }
 
 .program-card-button-style:hover {
-  background: #DC143C;
+  background: #0079d0;
   color: white;
   border-color: white;
 }
 
 .program-card-button-style:active {
-  background: #DC143C;
+  background: #0079d0;
   color: white;
   border-color: white;
 }
 
 .program-card-button-style:focus {
-  background: #DC143C;
+  background: #0079d0;
   color: white;
   border-color: white;
 }
@@ -258,7 +258,7 @@
   max-width: 50em;
   height: min-content;
   /* Primary/500 */
-  background: #F72E69;
+  background: #0096FF;
   border-radius: 8px;
   /* Inside auto layout */
   flex: none;
