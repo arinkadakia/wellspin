@@ -1,5 +1,5 @@
 import { Row, Button, Image, Typography } from "antd";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { surveyClient } from "../client/surveyClient";
 
@@ -22,6 +22,10 @@ export function Home() {
     // Usually we might setIsLoading(false) but actually we don't care because the whole component is unmounting
     // when we navigate to the Survey page
   };
+
+  useEffect(() => {
+    document.title = "WellSpin";
+  }, []);
 
   return (
     <div>
