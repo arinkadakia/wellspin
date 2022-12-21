@@ -30,7 +30,7 @@ export function Home() {
       </Row>
 
       <Row className="mb2">
-        <Typography.Title>Find your ADHD score in less than 5 minutes</Typography.Title>
+        <Typography.Title style={{ textAlign: "center" }}>Find your ADHD score in less than 5 minutes</Typography.Title>
       </Row>
 
       <Row justify="center" className="display-block">

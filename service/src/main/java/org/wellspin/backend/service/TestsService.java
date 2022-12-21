@@ -88,7 +88,7 @@ public class TestsService {
 		
 		if (session != null) {
 			// Initialize posResp = 0;
-			// For questionIds = {2 - 28}, if session.getResponses.getQuestionId().answerIds[0] > 0 
+			// For questionIds = {4 - 30}, if session.getResponses.getQuestionId().answerIds[0] > 0 
 			// 		=> posResponse = posResponse + session.getResponses.getQuestionId().answerIds[0] - 1;
 			// If posResp
 			//     < 40, score = -1, text = "Low ADHD score"
@@ -105,7 +105,7 @@ public class TestsService {
 						SessionResponse sessionResponse = entry.getValue();
 						if (sessionResponse != null) {
 							Integer questionId = sessionResponse.getQuestionId();
-							if (questionId >= 2 && questionId <= 28) {
+							if (questionId >= 4 && questionId <= 30) {
 								Integer[] answerIds = sessionResponse.getAnswerIds();
 								if (answerIds != null && answerIds.length > 0) {
 									posResponse = posResponse + answerIds[0] - 1;
@@ -118,19 +118,27 @@ public class TestsService {
 
 				if (posResponse < 40) {
 					testResult.setTestresultscore(-1);
-					testResult.setTestresulttext("Low ADHD");
+					testResult.setTestresulttext("<div style=\"color:green; font-weight:600 !important\">Based on your answers, "
+							+ "your symptoms are consistent with Low ADHD in children and teens</div>");
 				} else if (posResponse >= 40 && posResponse <=59) {
 					testResult.setTestresultscore(-1);
-					testResult.setTestresulttext("Average ADHD");					
+					testResult.setTestresulttext("<div style=\"color:green; font-weight:600 !important\">Based on your answers, "
+							+ "your symptoms are consistent with Average ADHD in children and teens</div>");					
 				} else if (posResponse >= 60 && posResponse <= 64) {
 					testResult.setTestresultscore(1);
-					testResult.setTestresulttext("High Average ADHD");					
+					testResult.setTestresulttext("<div style=\"color:red;font-weight:600 !important\">Based on your answers, "
+							+ "your symptoms are highly consistent with High Average ADHD in children and teens "
+							+ "and further investigation is warranted</div>");					
 				} else if (posResponse >= 65 && posResponse <= 69) {
 					testResult.setTestresultscore(1);
-					testResult.setTestresulttext("Elevated ADHD");					
+					testResult.setTestresulttext("<div style=\"color:red;font-weight:600 !important\">Based on your answers, "
+							+ "your symptoms are highly consistent with Elevated ADHD in children and teens "
+							+ "and further investigation is warranted</div>");					
 				} else if (posResponse >= 70) {
 					testResult.setTestresultscore(1);
-					testResult.setTestresulttext("Very elevated ADHD");					
+					testResult.setTestresulttext("<div style=\"color:red;font-weight:600 !important\">Based on your answers, "
+							+ "your symptoms are highly consistent with Very Elevated ADHD in children and teens "
+							+ "and further investigation is warranted</div>");					
 				}
 			}
 		}
@@ -149,8 +157,8 @@ public class TestsService {
 		
 		if (session != null) {
 			// Initialize posResp = 0;
-			// For questionIds = 29 - 31, if session.getResponses.getQuestionId().answerIds[0] >= 3 => posResp++
-			// For questionIds = 32 - 34, if session.getResponses.getQuestionId().answerIds[0] >= 4 => posResp++
+			// For questionIds = 31 - 33, if session.getResponses.getQuestionId().answerIds[0] >= 3 => posResp++
+			// For questionIds = 34 - 36, if session.getResponses.getQuestionId().answerIds[0] >= 4 => posResp++
 			// If posResp >=4, score = 1, text = "Positive ADHD score", else score = 0, text = "Negative ADHD score"
 			
 			testResult = testsRepository.findById(2); // testId for adults test = 2
@@ -161,14 +169,14 @@ public class TestsService {
 						SessionResponse sessionResponse = entry.getValue();
 						if (sessionResponse != null) {
 							Integer questionId = sessionResponse.getQuestionId();
-							if (questionId >= 29 && questionId <= 31) {
+							if (questionId >= 31 && questionId <= 33) {
 								Integer[] answerIds = sessionResponse.getAnswerIds();
 								if (answerIds != null && answerIds.length > 0) {
 									if (answerIds[0] >= 3) {
 										posResponse = posResponse + 1;
 									}
 								}
-							} else if (questionId >= 32 && questionId <= 34) {
+							} else if (questionId >= 34 && questionId <= 36) {
 								Integer[] answerIds = sessionResponse.getAnswerIds();
 								if (answerIds != null && answerIds.length > 0) {
 									if (answerIds[0] >= 4) {
@@ -182,13 +190,13 @@ public class TestsService {
 
 				if (posResponse >= 4) {
 					testResult.setTestresultscore(1);
-					testResult.setTestresulttext("Based on your answers, "
+					testResult.setTestresulttext("<div style=\"color:red;font-weight:600 !important\">Based on your answers, "
 							+ "your symptoms are highly consistent with ADHD in adults "
-							+ "and further investigation is warranted.");
+							+ "and further investigation is warranted</div>");
 				} else {
 					testResult.setTestresultscore(-1);
-					testResult.setTestresulttext("Based on your answers, "
-							+ "your symptoms are NOT consistent with ADHD in adults.");					
+					testResult.setTestresulttext("<div style=\"color:green; font-weight:600 !important\">Based on your answers, "
+							+ "your symptoms are NOT consistent with ADHD in adults</div>");					
 				} 
 			}
 			

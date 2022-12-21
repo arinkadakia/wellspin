@@ -11,10 +11,10 @@ export const TestCard = ({ test }: Props) => {
   return (
     <div className="card-style">
       <Typography.Title level={4}>{test.name}</Typography.Title>
-      <div className="test-description-style">{test.description}</div>
+      <div className="test-description-style" dangerouslySetInnerHTML={{ __html: test.description }} />
       <div className="test-result-title-style">
         <Typography.Title level={4}>Test Result</Typography.Title>
-        <div className="test-result-text">{test.testresulttext}</div>
+        <div className="test-result-text" dangerouslySetInnerHTML={{ __html: test.testresulttext }} />
       </div>
       <Button id="button-style-id" className="button-style" href={test.url} target="_blank">
         Visit Website
